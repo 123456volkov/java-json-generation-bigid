@@ -16,7 +16,7 @@ public class JSONutil {
 
     private String createPair() {
         String keyValuePair = String.format(" %s : %s ", "_"+mockNeat.strings().size(5).get(), mockNeat.strings().size(15).get() );
-        return  keyValuePair;
+        return keyValuePair;
     }
 
     private String createInsertedMass(){
@@ -78,7 +78,6 @@ public class JSONutil {
 
         JsonObject jsonObject = new JsonParser().parse(stringBuilder.toString()).getAsJsonObject();
         json = stringBuilder.toString();
-        System.out.println(json);
         return jsonObject.toString();
     }
 }
