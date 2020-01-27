@@ -15,7 +15,7 @@ public class JSONutil {
     }
 
     private String createPair() {
-        String keyValuePair = String.format(" %s : %s ", "_"+mockNeat.strings().size(5).get(), mockNeat.strings().size(15).get() );
+        String keyValuePair = String.format(" %s : %s ", "_"+mockNeat.strings().size(5).get(), mockNeat.strings().get() );
         return keyValuePair;
     }
 
@@ -23,7 +23,7 @@ public class JSONutil {
         StringBuilder stringBuilder = new StringBuilder();
 
         stringBuilder.append(String.format("%s : [", "_"+mockNeat.strings().size(5).get()));
-        int rand = ThreadLocalRandom.current().nextInt(1,10);
+        int rand = ThreadLocalRandom.current().nextInt(1,5);
         for (int i = 0; i <= rand; i++){
             stringBuilder.append(mockNeat.strings().get());
             if (i < rand)
@@ -40,7 +40,7 @@ public class JSONutil {
         stringBuilder.append(String.format("%s : {", "_"+mockNeat.strings().size(5).get()));
         int rand = ThreadLocalRandom.current().nextInt(1,5);
         for (int i = 0; i <= rand; i++){
-            if (i%4 == 0){
+            if (mockNeat.bools().get()){
                 stringBuilder.append(createInsertedMass());
             }
             else{
@@ -49,19 +49,20 @@ public class JSONutil {
             if (i < rand)
                 stringBuilder.append(",");
         }
-        stringBuilder.append("},");
+        stringBuilder.append("}");
 
         return  stringBuilder.toString();
     }
 
-    public String createNewJSON(){
+    public String createNewJSON() {
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{");
 
         for (int i = 0; i <= countOfMainKeys; i++){
-            if (i%4 == 0) {
+            if (mockNeat.bools().get()) {
                 stringBuilder.append(createInsertedObject());
+                stringBuilder.append(",");
             }
             else {
                 stringBuilder.append(createPair());
@@ -75,6 +76,8 @@ public class JSONutil {
         stringBuilder.append(String.format("_email : \"%s\",", mockNeat.emails().get()));
         stringBuilder.append(String.format("_login : \"%s\"", mockNeat.names().first().get().toUpperCase()));
         stringBuilder.append("}");
+
+        //System.out.println(stringBuilder.toString());
 
         JsonObject jsonObject = new JsonParser().parse(stringBuilder.toString()).getAsJsonObject();
         json = stringBuilder.toString();
